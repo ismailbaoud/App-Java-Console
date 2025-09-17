@@ -3,13 +3,16 @@ package models;
 import java.util.ArrayList;
 
 public abstract class Account {
-    private String code;
+    public  String code;
     private double solde;
-    public static ArrayList<Operation> operations;
+    public static ArrayList<Operation> operations = new ArrayList<>();
 
     public Account(String code, double solde) {
         this.code = code;
         this.solde = solde;
+    }
+    public Account() {
+
     }
 
     public String getCode() {

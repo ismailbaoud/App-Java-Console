@@ -10,7 +10,6 @@ public class Main {
         int choice , operation , accType ;
         do {
             System.out.println("********* welcome ********");
-
             System.out.println("1 => create account");
             System.out.println("2 => manage account");
             System.out.println("3 => Exit");

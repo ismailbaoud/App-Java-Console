@@ -18,9 +18,7 @@ public class CurrentAccount extends Account{
 
     @Override
     public String toString() {
-        return "CuorentAccount{" +
-                "CODE : " + this.getCode() + " solde" + this.getSolde() +
-                "decouvert=" + decouvert +
-                '}';
+        return "Code : " + this.getCode() + " solde" + this.getSolde() +
+                "decouvert=" + decouvert;
     }
 }
