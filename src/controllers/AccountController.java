@@ -3,13 +3,12 @@ package controllers;
 import models.Account;
 import models.CurrentAccount;
 import models.SavingAccount;
-
 import java.util.HashMap;
 
 public class AccountController {
     private static int chiffre = 10000;
-    private static HashMap<String,Account> compteCourantList = new HashMap<>();
-    private static HashMap<String,Account> compteEpargneList = new HashMap<>();
+    public static HashMap<String,Account> compteCourantList = new HashMap<>();
+    public static HashMap<String,Account> compteEpargneList = new HashMap<>();
     private CurrentAccount currentAccount ;
     private SavingAccount savingAccount ;
 
@@ -37,23 +36,23 @@ public class AccountController {
             }
             savingAccount = new SavingAccount(code, sold, tauxInteret);
             compteEpargneList.put(code, savingAccount);
-            displayAll(compteEpargneList);
+            display(savingAccount.code, compteEpargneList);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void delete(String code) {
+    public void delete(String code, HashMap<String , ? extends Account> list) {
         try {
-            compteCourantList.remove(code);
+            list.remove(code);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void update(String code, CurrentAccount currentAccount) {
+    public <T extends Account> void update(String code, T object, HashMap<String , T> list) {
         try {
-            compteCourantList.replace(code, currentAccount);
+            list.replace(code, object);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -74,16 +73,8 @@ public class AccountController {
     public void displayAll(HashMap<String, ? extends Account> list) {
         try {
             for (String item : list.keySet()) {
-                System.out.println("Code :" + item + " ,Account : " + list.get(item).toString());
+                System.out.println("Code :" + item + " ,Account : " + list.get(item));
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void displayLastOne() {
-        try {
-            System.out.println(compteCourantList.get(currentAccount.code).toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -97,5 +88,22 @@ public class AccountController {
         }
     }
 
+    public <T extends Account> T getAccountObject(String code) {
+        return (T) compteCourantList.get(code);
+    }
 
-}
+    public void versement(String code,double amount){
+        Account account = getAccountObject(code);
+        double newBalance = account.getSolde() + amount;
+        account.setSolde(newBalance);
+        System.out.println(newBalance);
+    }
+
+    public boolean isExist(String code) {
+        if(compteCourantList.containsKey(code)) {
+            return true;
+        }else if (compteEpargneList.containsKey(code)) {
+            return true;
+        }else return false;
+    }
+ }

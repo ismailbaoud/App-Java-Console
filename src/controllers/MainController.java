@@ -1,12 +1,16 @@
 package controllers;
 
+import models.Account;
+import models.CurrentAccount;
+
 import java.util.Scanner;
 
 public class MainController {
+    public String compteCode;
     private int choice ;
     static Scanner scanner = new Scanner(System.in);
     AccountController accountController = new AccountController();
-
+    CurrentAccount currentAccount = new CurrentAccount("", 0 , 0) ;
     public MainController(int choice) {
         this.choice = choice;
         this.displayoptions();
@@ -17,6 +21,14 @@ public class MainController {
             if (this.choice == 1) {
                 this.createAccountOptions();
             } else if (this.choice == 2) {
+                boolean exist ;
+                do {
+                    exist =  accountController.isExist(compteCode);
+                    System.out.print("please enter the account number : ");
+                    compteCode = scanner.next();
+
+                }while(!exist);
+
                 this.manageAccountOptions();
             }
         } catch (Exception e) {
@@ -79,19 +91,24 @@ public class MainController {
                 System.out.println("4 => Consulter le solde du compte");
                 System.out.println("5 => Consulter la liste des opérations effectuées sur un compte");
                 System.out.println("6 => l'accueil");
+                System.out.println("Enter your choice");
                 operation = scanner.nextInt();
                 switch (operation) {
                     case 1:
-                        System.out.println("your choice is 1");
+                        System.out.print("please enter the amount : ");
+                        double amountVersing = scanner.nextDouble();
+                        accountController.versement(compteCode,amountVersing);
                         break;
                     case 2:
-                        System.out.println("your choice is 2");
+                        System.out.print("please enter your amount :");
+                        double amountWithrawing = scanner.nextDouble();
+                        accountController.getAccountObject(compteCode).retirer(amountWithrawing);
                         break;
                     case 3:
-                        System.out.println("your choice is 3");
+
                         break;
                     case 4:
-                        System.out.println("your choice is 4");
+                        accountController.display(compteCode, AccountController.compteCourantList);
                         break;
                     case 5:
                         System.out.println("your choice is 5");

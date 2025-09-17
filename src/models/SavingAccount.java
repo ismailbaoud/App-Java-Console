@@ -22,4 +22,20 @@ public class SavingAccount extends Account{
     public void setTauxInteret(double tauxInteret) {
         this.tauxInteret = tauxInteret;
     }
+
+    @Override
+    public  void retirer(double solde) {
+
+    }
+
+    @Override
+    public void calculerInteret() {
+        setSolde(getSolde() * (this.tauxInteret / 100));
+        System.out.println(getCode());
+    }
+
+    @Override
+    public void afficherDetails() {
+
+    }
 }

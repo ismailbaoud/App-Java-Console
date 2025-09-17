@@ -11,9 +11,10 @@ public abstract class Account {
         this.code = code;
         this.solde = solde;
     }
-    public Account() {
 
-    }
+    public abstract  void retirer(double solde);
+    public abstract void calculerInteret();
+    public abstract void afficherDetails();
 
     public String getCode() {
         return code;
@@ -27,7 +28,7 @@ public abstract class Account {
         return solde;
     }
 
-    public void setSolde(int solde) {
+    public void setSolde(double solde) {
         this.solde = solde;
     }
 
