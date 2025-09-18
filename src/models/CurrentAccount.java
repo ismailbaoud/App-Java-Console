@@ -1,7 +1,7 @@
 package models;
 
 public class CurrentAccount extends Account{
-    public double decouvert;
+    private double decouvert;
 
     public CurrentAccount(String code, double solde, double decouvert) {
         super(code, solde);
@@ -24,7 +24,7 @@ public class CurrentAccount extends Account{
 
     @Override
     public void retirer(double sold) {
-        if(sold <= (getSolde() + getDecouvert()) && getSolde() != 0 ) {
+        if(sold <= (getSolde() + getDecouvert()) && getSolde() != 0  && getSolde() > 0) {
             double newSold = getSolde()-sold;
             setSolde(newSold);
             System.out.println(newSold);
@@ -40,6 +40,6 @@ public class CurrentAccount extends Account{
 
     @Override
     public void afficherDetails() {
-
+        System.out.println(toString());
     }
 }

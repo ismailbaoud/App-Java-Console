@@ -5,7 +5,7 @@ import models.CurrentAccount;
 import models.SavingAccount;
 import java.util.HashMap;
 
-public class AccountController {
+public class AccountController{
     private static int chiffre = 10000;
     public static HashMap<String,Account> compteCourantList = new HashMap<>();
     public static HashMap<String,Account> compteEpargneList = new HashMap<>();
@@ -17,7 +17,7 @@ public class AccountController {
             String code = generateCode();
             currentAccount = new CurrentAccount(code, sold, decouvert);
             compteCourantList.put(code, currentAccount);
-            display(code, compteCourantList);
+            displaySold(code);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -36,7 +36,7 @@ public class AccountController {
             }
             savingAccount = new SavingAccount(code, sold, tauxInteret);
             compteEpargneList.put(code, savingAccount);
-            display(savingAccount.code, compteEpargneList);
+            displaySold(savingAccount.code);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -58,15 +58,12 @@ public class AccountController {
         }
     }
 
-    public void display(String code, HashMap<String, ? extends Account> list) {
-        try {
-            for (String item : list.keySet()) {
-                if (item.equals(code)) {
-                    System.out.println("Code : " + item + " , Account : " + list.get(item));
-                }
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    public void displaySold(String code) {
+        Account account = getAccountObject(code);
+        if (account != null) {
+            System.out.println("Account code: " + code + " , Sold: " + account.getSolde());
+        } else {
+            System.out.println("No account found with code: " + code);
         }
     }
 
@@ -88,8 +85,14 @@ public class AccountController {
         }
     }
 
-    public <T extends Account> T getAccountObject(String code) {
-        return (T) compteCourantList.get(code);
+    public Account getAccountObject(String code) {
+        if (compteCourantList.containsKey(code)) {
+            return compteCourantList.get(code);
+        }
+        if (compteEpargneList.containsKey(code)) {
+            return compteEpargneList.get(code);
+        }
+        return null;
     }
 
     public void versement(String code,double amount){
@@ -105,5 +108,17 @@ public class AccountController {
         }else if (compteEpargneList.containsKey(code)) {
             return true;
         }else return false;
+    }
+
+    public void accountToAccount(String receiverCode , String senderCode, double amount) {
+        Account sender, receiver ;
+        receiver = getAccountObject(receiverCode);
+        sender = getAccountObject(senderCode);
+        if (sender.getSolde() >= amount) {
+            receiver.setSolde(receiver.getSolde() + amount);
+            sender.setSolde(sender.getSolde() - amount);
+        }
+        System.out.println("new sender amount : " + sender.getSolde());
+        System.out.println("new receiver amount : " + receiver.getSolde());
     }
  }

@@ -1,5 +1,6 @@
 package controllers;
 
+import enums.Source;
 import models.Account;
 import models.CurrentAccount;
 
@@ -10,7 +11,8 @@ public class MainController {
     private int choice ;
     static Scanner scanner = new Scanner(System.in);
     AccountController accountController = new AccountController();
-    CurrentAccount currentAccount = new CurrentAccount("", 0 , 0) ;
+    OperationController operationController = new OperationController();
+
     public MainController(int choice) {
         this.choice = choice;
         this.displayoptions();
@@ -21,11 +23,11 @@ public class MainController {
             if (this.choice == 1) {
                 this.createAccountOptions();
             } else if (this.choice == 2) {
-                boolean exist ;
+                boolean exist = false;
                 do {
-                    exist =  accountController.isExist(compteCode);
                     System.out.print("please enter the account number : ");
                     compteCode = scanner.next();
+                    exist =  accountController.isExist(compteCode);
 
                 }while(!exist);
 
@@ -88,16 +90,38 @@ public class MainController {
                 System.out.println("1 => Effectuer un versement");
                 System.out.println("2 => Effectuer un retrait");
                 System.out.println("3 => Effectuer un virement entre comptes");
-                System.out.println("4 => Consulter le solde du compte");
-                System.out.println("5 => Consulter la liste des opérations effectuées sur un compte");
-                System.out.println("6 => l'accueil");
+                System.out.println("4 => Consulter les details du compte");
+                System.out.println("5 => Consulter le solde de compte");
+                System.out.println("6 => Consulter la liste des opérations effectuées sur un compte");
+                System.out.println("7 => l'accueil");
                 System.out.println("Enter your choice");
                 operation = scanner.nextInt();
+
                 switch (operation) {
                     case 1:
+                        Source source  = null;
                         System.out.print("please enter the amount : ");
                         double amountVersing = scanner.nextDouble();
+                        System.out.println("please enter the source : ");
+                        System.out.println("1 => Virement externe");
+                        System.out.println("2 => Dépôt espèces");
+                        System.out.println("3 => Salaire");
+                        System.out.println("enter your choice : ");
+                        int sourceChoice = scanner.nextInt();
+
+                        if (sourceChoice == 1) {
+                            source = Source.VIREMENT_EXTERNE;
+                        } else if (sourceChoice == 2) {
+                            source = Source.DEPOT_ESPECES;
+                        } else if (sourceChoice == 3) {
+                            source = Source.SALAIRE;
+                        } else {
+                            System.out.println("Invalid choice!");
+                            return;
+                        }
+
                         accountController.versement(compteCode,amountVersing);
+                        operationController.depositOperation(source, amountVersing);
                         break;
                     case 2:
                         System.out.print("please enter your amount :");
@@ -105,22 +129,36 @@ public class MainController {
                         accountController.getAccountObject(compteCode).retirer(amountWithrawing);
                         break;
                     case 3:
+                        boolean exist ;
+                        do {
+                            System.out.println("please enter receiver account code : ");
+                            String receiver = scanner.next();
+                            exist = accountController.isExist(receiver);
+                            System.out.println("please enter the amount : ");
+                            double amount = scanner.nextDouble();
+                            accountController.accountToAccount(receiver, compteCode ,amount);
+                        }while (!exist);
+
 
                         break;
                     case 4:
-                        accountController.display(compteCode, AccountController.compteCourantList);
+                        accountController.getAccountObject(compteCode).afficherDetails();
+
                         break;
                     case 5:
-                        System.out.println("your choice is 5");
+                        accountController.displaySold(compteCode);
+
                         break;
                     case 6:
                         System.out.println("your choice is 6");
                         break;
+                    case 7:
+                        System.out.println("good bye !!");
                     default:
                         System.out.println("invalide choice please try valide choice ");
                 }
 
-            } while (operation != 6);
+            } while (operation != 7);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

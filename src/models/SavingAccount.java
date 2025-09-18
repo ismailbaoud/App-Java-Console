@@ -1,7 +1,7 @@
 package models;
 
 public class SavingAccount extends Account{
-    public double tauxInteret;
+    private double tauxInteret;
 
     public SavingAccount(String code, double solde, double tauxInteret) {
         super(code, solde);
@@ -15,8 +15,8 @@ public class SavingAccount extends Account{
     @Override
     public String toString() {
         return " Code= " + getCode() +
-                " ,tauxInteret= " + tauxInteret +
-                " ,solde = " + getSolde();
+                " ,solde = " + getSolde() +
+                " ,tauxInteret " + getTauxInteret();
     }
 
     public void setTauxInteret(double tauxInteret) {
@@ -24,8 +24,14 @@ public class SavingAccount extends Account{
     }
 
     @Override
-    public  void retirer(double solde) {
-
+    public  void retirer(double sold) {
+        if(getSolde() <= 0 || sold > getSolde()) {
+            System.out.println("your haven't the amount");
+        }else {
+            double newSold = getSolde()-sold;
+            setSolde(newSold);
+            System.out.println(newSold);
+        }
     }
 
     @Override
@@ -36,6 +42,6 @@ public class SavingAccount extends Account{
 
     @Override
     public void afficherDetails() {
-
+        System.out.println(toString());
     }
 }
