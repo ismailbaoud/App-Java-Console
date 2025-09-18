@@ -9,31 +9,44 @@ import models.Withdraw;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 public class OperationController {
     public static ArrayList<Operation> operationList = new ArrayList<>();
+    public Stream<Operation> operationStream = operationList.stream();
     public Deposit deposit;
     public Withdraw withdraw;
 
-    public void depositOperation(Source source, double amount) {
+    public void depositOperation(Source source, double amount, String code) {
         deposit = new Deposit(
                 UUID.randomUUID(),
                 new Date(),
                 amount,
-                source
+                source,
+                code
         );
         operationList.add(deposit);
         System.out.println(deposit.toString());
     }
 
-    public void withdrawOperation(Destination destination, double amount) {
+    public void withdrawOperation(Destination destination, double amount, String code) {
         withdraw = new Withdraw(
                 UUID.randomUUID(),
                 new Date(),
                 amount,
-                destination
+                destination,
+                code
         );
         operationList.add(withdraw);
-        System.out.println(deposit.toString());
+        System.out.println(withdraw.toString());
     }
+
+    public void displayAccountOPerations(String code) {
+        operationStream.filter(n -> n.accountCode.equals(code))
+
+                .sorted()
+                .forEach(System.out::println);
+    }
+
+
 }

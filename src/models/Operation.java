@@ -6,14 +6,16 @@ import java.util.UUID;
 public class Operation {
     private UUID numero;
     private Date date;
+    public String accountCode;
+    private double montant;
 
-    public Operation(UUID numero, Date date, double montant) {
+    public Operation(UUID numero, Date date, double montant , String accountCode) {
         this.numero = numero;
         this.date = date;
         this.montant = montant;
+        this.accountCode = accountCode;
     }
 
-    private double montant;
 
     public UUID getNumero() {
         return numero;
@@ -21,6 +23,14 @@ public class Operation {
 
     public void setNumero(UUID numero) {
         this.numero = numero;
+    }
+
+    public String getAccountCode() {
+        return accountCode;
+    }
+
+    public void setAccountCode(String accountCode) {
+        this.accountCode = accountCode;
     }
 
     public Date getDate() {

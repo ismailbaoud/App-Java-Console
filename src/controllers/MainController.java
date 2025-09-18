@@ -1,5 +1,6 @@
 package controllers;
 
+import enums.Destination;
 import enums.Source;
 import models.Account;
 import models.CurrentAccount;
@@ -121,12 +122,33 @@ public class MainController {
                         }
 
                         accountController.versement(compteCode,amountVersing);
-                        operationController.depositOperation(source, amountVersing);
+                        operationController.depositOperation(source, amountVersing,compteCode);
                         break;
                     case 2:
                         System.out.print("please enter your amount :");
                         double amountWithrawing = scanner.nextDouble();
                         accountController.getAccountObject(compteCode).retirer(amountWithrawing);
+                        System.out.println("please enter destination : ");
+                        System.out.println("1 => DISTRIBUTEUR_ATM,");
+                        System.out.println("2 => CHEQUE");
+                        System.out.println("3 => VIREMENT");
+                        System.out.println("enter your choice : ");
+                        int destinationChoice = scanner.nextInt();
+
+                        Destination destination = null;
+
+                        if (destinationChoice == 1) {
+                            destination = Destination.DISTRIBUTEUR_ATM;
+                        } else if (destinationChoice == 2) {
+                            destination = Destination.CHEQUE;
+                        } else if (destinationChoice == 3) {
+                            destination = Destination.VIREMENT;
+                        } else {
+                            System.out.println("Invalid choice!");
+                            return;
+                        }
+
+                        operationController.withdrawOperation(destination, amountWithrawing,compteCode);
                         break;
                     case 3:
                         boolean exist ;
@@ -137,6 +159,7 @@ public class MainController {
                             System.out.println("please enter the amount : ");
                             double amount = scanner.nextDouble();
                             accountController.accountToAccount(receiver, compteCode ,amount);
+                            operationController.depositOperation(Source.VIREMENT_EXTERNE, amount,compteCode);
                         }while (!exist);
 
 
@@ -150,7 +173,7 @@ public class MainController {
 
                         break;
                     case 6:
-                        System.out.println("your choice is 6");
+                        operationController.displayAccountOPerations(compteCode);
                         break;
                     case 7:
                         System.out.println("good bye !!");
