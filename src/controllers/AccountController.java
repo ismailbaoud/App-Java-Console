@@ -39,7 +39,7 @@ public class AccountController{
     public void displaySold(String code) {
         Account account = helper.getAccountObject(code);
         if (account != null) {
-            System.out.println("Account code: " + code + " , Balance: " + account.getBalance());
+            System.out.println("Account code: " + code + " , Balance: " + account.getBalance() + "DH");
         } else {
             System.out.println("No account found with code: " + code);
         }

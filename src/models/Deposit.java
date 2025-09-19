@@ -22,7 +22,7 @@ public class Deposit extends Operation {
         return  "UUID : " + getNumero() +
                 " ,Account code" + getAccountCode() +
                 " , source : " + source +
-                " , Amount : " + getMontant() +
+                " , Amount : " + getMontant() + "DH" +
                 " , Date : " + getDate();
     }
 

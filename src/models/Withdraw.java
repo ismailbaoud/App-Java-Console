@@ -25,7 +25,7 @@ public class Withdraw extends Operation {
     public String toString() {
         return  "UUID : " + getNumero() +
                 " ,Account code" + getAccountCode() +
-                " , Amount : " + getMontant() +
+                " , Amount : " + getMontant() + "DH" +
                 " , distinction=" + distination +
                 " , Date : " + getDate();
     }

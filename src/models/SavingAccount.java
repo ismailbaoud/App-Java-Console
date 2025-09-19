@@ -19,16 +19,16 @@ public class SavingAccount extends Account{
         Runnable task = () -> {
             double interet = calculateInterest();
             setBalance(getBalance() + interet);
-            System.out.println("Interest added: " + interet + ", new solde: " + getBalance());
+            System.out.println("Interest added: " + interet + " DH" + ", new solde: " + getBalance() + " DH");
         };
 
-        scheduler.scheduleAtFixedRate(task, 30, 30, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(task, 10, 10, TimeUnit.SECONDS);
     }
 
     @Override
     public String toString() {
         return " Code= " + getCode() +
-                " ,Balance = " + getBalance() +
+                " ,Balance = " + getBalance() + "DH" +
                 " ,interestRate " + getInterestRate();
     }
 

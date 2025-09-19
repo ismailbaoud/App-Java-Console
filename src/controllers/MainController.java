@@ -68,6 +68,9 @@ public class MainController {
                         } while (savingBalance < 0);
                         accountController.createSavingAccount(savingBalance);
                         break;
+                    case 3:
+                        System.out.println("Good Bye !!");
+                        break;
                     default:
                         System.out.println("Invalid choice !! please enter valid choice");
                         break;
@@ -90,7 +93,7 @@ public class MainController {
                 System.out.println("4 => View account details");
                 System.out.println("5 => View account balance");
                 System.out.println("6 => View the list of transactions on an account");
-                System.out.println("7 => Home");
+                System.out.println("7 => Exit");
                 System.out.println("Enter your choice:");
 
                 operation = scanner.nextInt();
@@ -129,7 +132,7 @@ public class MainController {
                         System.out.println("1 => DISTRIBUTEUR_ATM,");
                         System.out.println("2 => CHEQUE");
                         System.out.println("3 => VIREMENT");
-                        System.out.println("enter your choice : ");
+                        System.out.println("Enter your choice : ");
                         int destinationChoice = scanner.nextInt();
 
                         Destination destination = null;

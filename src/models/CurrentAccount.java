@@ -18,7 +18,8 @@ public class CurrentAccount extends Account{
 
     @Override
     public String toString() {
-        return "Code : " + this.getCode() + " ,solde " + this.getBalance() +
+        return  "Code : " + this.getCode() +
+                " ,solde " + this.getBalance() + "DH" +
                 " ,decouvert=" + decouvert;
     }
 
