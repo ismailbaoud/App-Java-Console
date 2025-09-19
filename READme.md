@@ -1,6 +1,6 @@
-# 💳 BanqueApp - Banking Account Management (Java 8)
+#  BanqueApp - Banking Account Management (Java 8)
 
-## 📖 Overview
+##  Overview
 BanqueApp is a **console-based banking application** developed in **Java 8**.  
 It allows automated management of bank accounts and transactions such as deposits, withdrawals, and transfers.
 
@@ -9,9 +9,9 @@ All outputs and interactions are handled directly within controllers.
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
-### 📂 Package Structure
+###  Package Structure
 ```
 src/
  ├── controller/
@@ -30,14 +30,14 @@ src/
       └── CodeGenerator.java
 ```
 
-### 🖥️ Controllers
+###  Controllers
 - **MainController** → entry point, handles the main console menu.
 - **AccountController** → account-related operations (create, consult, check balance).
 - **OperationController** → transaction-related operations (deposit, withdrawal, transfer).
 
 ---
 
-## 📑 Business Model
+##  Business Model
 
 ### 🔹 Abstract Class `Compte`
 - **Attributes**
@@ -82,17 +82,17 @@ src/
 
 ---
 
-## ⚙️ Features
-- ✅ Create account (current or savings)
-- ✅ Deposit into account
-- ✅ Withdraw from account
-- ✅ Transfer between accounts (reuses deposit & withdrawal logic)
-- ✅ Check account balance
-- ✅ List account operations
+##  Features
+-  Create account (current or savings)
+-  Deposit into account
+-  Withdraw from account
+-  Transfer between accounts (reuses deposit & withdrawal logic)
+-  Check account balance
+-  List account operations
 
 ---
 
-## 🛠️ Technical Specifications
+##  Technical Specifications
 - **Collections** → `HashMap` for fast account lookup.
 - **Dates** → handled using Java Time API (`LocalDateTime`).
 - **Validations** → input checks (positive amounts, account code format).
@@ -101,13 +101,13 @@ src/
 
 ---
 
-## 🌟 Bonus (Optional Enhancements)
+##  Bonus (Optional Enhancements)
 - Use **Stream API** for filtering and displaying accounts/operations.
 - Advanced search by amount, date, or type of operation.
 
 ---
 
-## ▶️ Run Instructions
+##  Run Instructions
 
 ### Run from JAR (pre-built)
  run:
@@ -116,7 +116,7 @@ cd src/bankSystemApp_jar/
 java -jar bankSystemApp.jar
 ```
 
-## 🖥️ Console Menu
+##  Console Menu
 
 ```
 ==== BANK MENU ====
@@ -156,6 +156,6 @@ java -jar bankSystemApp.jar
 
 ---
 
-## 👨‍💻 Author
+##  Author
 **Ismail baoud**  
 Full stack and Java Developer | Banking Systems Enthusiast  
