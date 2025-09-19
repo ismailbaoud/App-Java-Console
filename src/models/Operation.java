@@ -3,16 +3,16 @@ package models;
 import java.util.Date;
 import java.util.UUID;
 
-public class Operation {
+public abstract class Operation {
     private UUID numero;
     private Date date;
     public String accountCode;
-    private double montant;
+    private double amount;
 
-    public Operation(UUID numero, Date date, double montant , String accountCode) {
+    public Operation(UUID numero, Date date, double amount , String accountCode) {
         this.numero = numero;
         this.date = date;
-        this.montant = montant;
+        this.amount = amount;
         this.accountCode = accountCode;
     }
 
@@ -42,10 +42,10 @@ public class Operation {
     }
 
     public double getMontant() {
-        return montant;
+        return amount;
     }
 
     public void setMontant(double montant) {
-        this.montant = montant;
+        this.amount = montant;
     }
 }

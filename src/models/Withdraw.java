@@ -8,8 +8,8 @@ import java.util.UUID;
 public class Withdraw extends Operation {
     private Destination distination;
 
-    public Withdraw(UUID numero, Date date, double montant, Destination distination , String code) {
-        super(numero, date, montant, code);
+    public Withdraw(UUID numero, Date date, double amount, Destination distination , String code) {
+        super(numero, date, amount, code);
         this.distination = distination;
     }
 
@@ -25,7 +25,6 @@ public class Withdraw extends Operation {
     public String toString() {
         return  "UUID : " + getNumero() +
                 " ,Account code" + getAccountCode() +
-
                 " , Amount : " + getMontant() +
                 " , distinction=" + distination +
                 " , Date : " + getDate();

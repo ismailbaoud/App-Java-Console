@@ -4,17 +4,18 @@ import java.util.ArrayList;
 
 public abstract class Account {
     public  String code;
-    private double solde;
+    private double balance;
     public static ArrayList<Operation> operations = new ArrayList<>();
 
-    public Account(String code, double solde) {
+    public Account(String code, double balance) {
         this.code = code;
-        this.solde = solde;
+        this.balance = balance;
     }
 
-    public abstract  void retirer(double solde);
-    public abstract void calculerInteret();
-    public abstract void afficherDetails();
+    public abstract void withdraw(double balance);
+    public abstract double calculateInterest();
+    public abstract void displayDetails();
+
 
     public String getCode() {
         return code;
@@ -24,12 +25,12 @@ public abstract class Account {
         this.code = code;
     }
 
-    public double getSolde() {
-        return solde;
+    public double getBalance() {
+        return balance;
     }
 
-    public void setSolde(double solde) {
-        this.solde = solde;
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
 }

@@ -1,47 +1,66 @@
 package models;
 
-public class SavingAccount extends Account{
-    private double tauxInteret;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-    public SavingAccount(String code, double solde, double tauxInteret) {
+public class SavingAccount extends Account{
+    private double interestRate = 0.05;
+    private ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+
+    public SavingAccount(String code, double solde) {
         super(code, solde);
-        this.tauxInteret = tauxInteret;
+        startInterestScheduler();
     }
 
-    public double getTauxInteret() {
-        return tauxInteret;
+    private void startInterestScheduler() {
+        Runnable task = () -> {
+            double interet = calculateInterest();
+            setBalance(getBalance() + interet);
+            System.out.println("Interest added: " + interet + ", new solde: " + getBalance());
+        };
+
+        scheduler.scheduleAtFixedRate(task, 30, 30, TimeUnit.SECONDS);
     }
 
     @Override
     public String toString() {
         return " Code= " + getCode() +
-                " ,solde = " + getSolde() +
-                " ,tauxInteret " + getTauxInteret();
-    }
-
-    public void setTauxInteret(double tauxInteret) {
-        this.tauxInteret = tauxInteret;
+                " ,Balance = " + getBalance() +
+                " ,interestRate " + getInterestRate();
     }
 
     @Override
-    public  void retirer(double sold) {
-        if(getSolde() <= 0 || sold > getSolde()) {
+    public  void withdraw(double sold) {
+        if(getBalance() <= 0 || sold > getBalance()) {
             System.out.println("your haven't the amount");
         }else {
-            double newSold = getSolde()-sold;
-            setSolde(newSold);
+            double newSold = getBalance()-sold;
+            setBalance(newSold);
             System.out.println(newSold);
         }
     }
 
     @Override
-    public void calculerInteret() {
-        setSolde(getSolde() * (this.tauxInteret / 100));
-        System.out.println(getCode());
+    public double calculateInterest() {
+        if (getBalance() > 0) {
+            return getBalance() * interestRate;
+        }
+        return 0;
     }
 
     @Override
-    public void afficherDetails() {
+    public void displayDetails() {
         System.out.println(toString());
+    }
+
+    public double getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(double interestRate) {
+        this.interestRate = interestRate;
     }
 }

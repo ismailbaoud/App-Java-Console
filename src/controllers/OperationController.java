@@ -41,9 +41,8 @@ public class OperationController {
         System.out.println(withdraw.toString());
     }
 
-    public void displayAccountOPerations(String code) {
+    public void displayAccountOperations(String code) {
         operationStream.filter(n -> n.accountCode.equals(code))
-
                 .sorted()
                 .forEach(System.out::println);
     }

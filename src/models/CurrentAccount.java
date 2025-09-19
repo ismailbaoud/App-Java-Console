@@ -18,15 +18,15 @@ public class CurrentAccount extends Account{
 
     @Override
     public String toString() {
-        return "Code : " + this.getCode() + " ,solde " + this.getSolde() +
+        return "Code : " + this.getCode() + " ,solde " + this.getBalance() +
                 " ,decouvert=" + decouvert;
     }
 
     @Override
-    public void retirer(double sold) {
-        if(sold <= (getSolde() + getDecouvert()) && getSolde() != 0  && getSolde() > 0) {
-            double newSold = getSolde()-sold;
-            setSolde(newSold);
+    public void withdraw(double sold) {
+        if(sold <= (getBalance() + getDecouvert()) && getBalance() != 0  && getBalance() > 0) {
+            double newSold = getBalance()-sold;
+            setBalance(newSold);
             System.out.println(newSold);
         }else {
             System.out.println("your haven't the amount");
@@ -34,12 +34,12 @@ public class CurrentAccount extends Account{
     }
 
     @Override
-    public void calculerInteret() {
-        return;
+    public double calculateInterest() {
+        return 0;
     }
 
     @Override
-    public void afficherDetails() {
+    public void displayDetails() {
         System.out.println(toString());
     }
 }
