@@ -110,7 +110,7 @@ src/
 ##  Run Instructions
 
 ### Run from JAR (pre-built)
- run:
+run:
 ```bash
 cd src/bankSystemApp_jar/
 java -jar bankSystemApp.jar
@@ -155,7 +155,7 @@ java -jar bankSystemApp.jar
 ```
 
 ---
-
+![img.png](img.png)
 ##  Author
 **Ismail baoud**  
 Full stack and Java Developer | Banking Systems Enthusiast  
